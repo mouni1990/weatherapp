@@ -33,6 +33,8 @@ npx serve
 
 Then open http://localhost:8000 in your browser.
 
+live site at https://mouni1990.github.io/weatherapp/
+
 ## API Reference
 
 This app uses the free [Open-Meteo API](https://open-meteo.com/) which:
