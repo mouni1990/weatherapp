@@ -8,6 +8,7 @@ const welcomeEl = document.getElementById('welcome');
 
 const cityNameEl = document.getElementById('city-name');
 const currentDateEl = document.getElementById('current-date');
+const localTimeEl = document.getElementById('local-time');
 const weatherIconEl = document.getElementById('weather-icon');
 const currentTempEl = document.getElementById('current-temp');
 const weatherDescEl = document.getElementById('weather-description');
@@ -16,6 +17,9 @@ const windSpeedEl = document.getElementById('wind-speed');
 const feelsLikeEl = document.getElementById('feels-like');
 const uvIndexEl = document.getElementById('uv-index');
 const forecastContainer = document.getElementById('forecast-container');
+
+let currentTimezone = null;
+let timeUpdateInterval = null;
 
 const weatherCodes = {
     0: { description: 'Clear sky', icon: '01d' },
@@ -83,6 +87,43 @@ function formatDay(dateString) {
         return 'Tomorrow';
     }
     return date.toLocaleDateString('en-US', { weekday: 'short' });
+}
+
+function formatLocalTime(timezone) {
+    const now = new Date();
+    return now.toLocaleString('en-US', {
+        timeZone: timezone,
+        hour: 'numeric',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+    });
+}
+
+function formatLocalDate(timezone) {
+    const now = new Date();
+    return now.toLocaleDateString('en-US', {
+        timeZone: timezone,
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
+
+function updateLocalTime() {
+    if (currentTimezone) {
+        localTimeEl.textContent = `Local time: ${formatLocalTime(currentTimezone)}`;
+    }
+}
+
+function startTimeUpdates(timezone) {
+    currentTimezone = timezone;
+    if (timeUpdateInterval) {
+        clearInterval(timeUpdateInterval);
+    }
+    updateLocalTime();
+    timeUpdateInterval = setInterval(updateLocalTime, 1000);
 }
 
 function showLoading() {
@@ -157,7 +198,8 @@ function displayCurrentWeather(location, weather) {
     }
     
     cityNameEl.textContent = locationText;
-    currentDateEl.textContent = formatDate(new Date().toISOString());
+    currentDateEl.textContent = formatLocalDate(weather.timezone);
+    startTimeUpdates(weather.timezone);
     
     const temp = Math.round(current.temperature_2m);
     currentTempEl.textContent = temp;
