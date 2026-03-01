@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <h1>Weather</h1>
+            <div class="search-container">
+                <input type="text" id="city-input" placeholder="Search city..." autocomplete="off">
+                <button id="search-btn" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Fetching weather data...</p>
+            </div>
+
+            <div id="error" class="error-message hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="m15 9-6 6"></path>
+                    <path d="m9 9 6 6"></path>
+                </svg>
+                <p id="error-text">City not found. Please try again.</p>
+            </div>
+
+            <div id="weather-content" class="weather-content hidden">
+                <section class="current-weather">
+                    <div class="location-info">
+                        <h2 id="city-name">--</h2>
+                        <p id="current-date">--</p>
+                    </div>
+                    <div class="weather-main">
+                        <div class="weather-icon-container">
+                            <img id="weather-icon" src="" alt="Weather icon">
+                        </div>
+                        <div class="temperature-container">
+                            <span id="current-temp" class="temperature">--</span>
+                            <span class="temp-unit">°C</span>
+                        </div>
+                    </div>
+                    <p id="weather-description" class="weather-description">--</p>
+                    <div class="weather-details">
+                        <div class="detail-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2v10"></path>
+                                <path d="M18.4 6.6a9 9 0 1 1-12.77.04"></path>
+                            </svg>
+                            <div>
+                                <span class="detail-label">Humidity</span>
+                                <span id="humidity" class="detail-value">--%</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"></path>
+                                <path d="M9.6 4.6A2 2 0 1 1 11 8H2"></path>
+                                <path d="M12.6 19.4A2 2 0 1 0 14 16H2"></path>
+                            </svg>
+                            <div>
+                                <span class="detail-label">Wind</span>
+                                <span id="wind-speed" class="detail-value">-- km/h</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12h20"></path>
+                                <path d="M12 2v20"></path>
+                                <circle cx="12" cy="12" r="4"></circle>
+                            </svg>
+                            <div>
+                                <span class="detail-label">Feels Like</span>
+                                <span id="feels-like" class="detail-value">--°C</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <path d="M12 1v2"></path>
+                                <path d="M12 21v2"></path>
+                                <path d="M4.2 4.2l1.4 1.4"></path>
+                                <path d="M18.4 18.4l1.4 1.4"></path>
+                                <path d="M1 12h2"></path>
+                                <path d="M21 12h2"></path>
+                                <path d="M4.2 19.8l1.4-1.4"></path>
+                                <path d="M18.4 5.6l1.4-1.4"></path>
+                            </svg>
+                            <div>
+                                <span class="detail-label">UV Index</span>
+                                <span id="uv-index" class="detail-value">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="forecast-section">
+                    <h3>7-Day Forecast</h3>
+                    <div id="forecast-container" class="forecast-container">
+                    </div>
+                </section>
+            </div>
+
+            <div id="welcome" class="welcome-message">
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <path d="M12 1v2"></path>
+                    <path d="M12 21v2"></path>
+                    <path d="M4.2 4.2l1.4 1.4"></path>
+                    <path d="M18.4 18.4l1.4 1.4"></path>
+                    <path d="M1 12h2"></path>
+                    <path d="M21 12h2"></path>
+                    <path d="M4.2 19.8l1.4-1.4"></path>
+                    <path d="M18.4 5.6l1.4-1.4"></path>
+                </svg>
+                <h2>Welcome to Weather App</h2>
+                <p>Search for a city to get the current weather and forecast</p>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Powered by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

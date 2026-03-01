@@ -1,0 +1,11 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "A beautiful weather app with current conditions and 7-day forecast",
+  "scripts": {
+    "start": "npx serve -l 8000",
+    "dev": "npx serve -l 8000"
+  },
+  "keywords": ["weather", "forecast", "open-meteo"],
+  "license": "MIT"
+}
