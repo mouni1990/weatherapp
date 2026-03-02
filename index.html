@@ -12,8 +12,23 @@
 <body>
     <div class="app-container">
         <header class="header">
-            <h1>Weather</h1>
+            <div class="header-top">
+                <h1>Weather</h1>
+                <div class="unit-toggle">
+                    <button id="celsius-btn" class="unit-btn active">°C</button>
+                    <button id="fahrenheit-btn" class="unit-btn">°F</button>
+                </div>
+            </div>
             <div class="search-container">
+                <button id="location-btn" class="location-btn" aria-label="Use my location">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 2v4"></path>
+                        <path d="M12 18v4"></path>
+                        <path d="M2 12h4"></path>
+                        <path d="M18 12h4"></path>
+                    </svg>
+                </button>
                 <input type="text" id="city-input" placeholder="Search city..." autocomplete="off">
                 <button id="search-btn" aria-label="Search">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -52,7 +67,7 @@
                         </div>
                         <div class="temperature-container">
                             <span id="current-temp" class="temperature">--</span>
-                            <span class="temp-unit">°C</span>
+                            <span id="temp-unit" class="temp-unit">°C</span>
                         </div>
                     </div>
                     <p id="weather-description" class="weather-description">--</p>
@@ -129,7 +144,10 @@
                     <path d="M18.4 5.6l1.4-1.4"></path>
                 </svg>
                 <h2>Welcome to Weather App</h2>
-                <p>Search for a city to get the current weather and forecast</p>
+                <p>Detecting your location...</p>
+                <div id="welcome-loading" class="welcome-loading">
+                    <div class="spinner-small"></div>
+                </div>
             </div>
         </main>
 
