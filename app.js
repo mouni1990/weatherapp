@@ -22,12 +22,73 @@ const windSpeedEl = document.getElementById('wind-speed');
 const feelsLikeEl = document.getElementById('feels-like');
 const uvIndexEl = document.getElementById('uv-index');
 const forecastContainer = document.getElementById('forecast-container');
+const citySuggestionsEl = document.getElementById('city-suggestions');
+const favoritesEl = document.getElementById('favorites');
+const favoriteBtn = document.getElementById('favorite-btn');
+const hourlyContainer = document.getElementById('hourly-container');
 
 let currentTimezone = null;
 let timeUpdateInterval = null;
 let currentWeatherData = null;
 let currentLocationData = null;
 let useFahrenheit = localStorage.getItem('useFahrenheit') === 'true';
+let suggestionsDebounce = null;
+
+function getFavorites() {
+    try {
+        const saved = localStorage.getItem('favorites');
+        return saved ? JSON.parse(saved) : [];
+    } catch { return []; }
+}
+
+function saveFavorites(favs) {
+    localStorage.setItem('favorites', JSON.stringify(favs));
+}
+
+function addFavorite(location) {
+    const favs = getFavorites();
+    const key = `${location.name}|${location.country}|${location.lat}|${location.lon}`;
+    if (favs.some(f => `${f.name}|${f.country}|${f.lat}|${f.lon}` === key)) return;
+    favs.push({ name: location.name, country: location.country, admin1: location.admin1 || '', lat: location.lat, lon: location.lon });
+    saveFavorites(favs);
+    renderFavorites();
+}
+
+function removeFavorite(location) {
+    const favs = getFavorites().filter(f => !(f.name === location.name && f.country === location.country && f.lat === location.lat && f.lon === location.lon));
+    saveFavorites(favs);
+    renderFavorites();
+}
+
+function isFavorite(location) {
+    if (!location) return false;
+    return getFavorites().some(f => f.name === location.name && f.country === location.country && Math.abs(f.lat - location.lat) < 0.01 && Math.abs(f.lon - location.lon) < 0.01);
+}
+
+function updateFavoriteButton() {
+    if (!favoriteBtn) return;
+    const icon = document.getElementById('favorite-icon');
+    if (!icon) return;
+    if (isFavorite(currentLocationData)) {
+        favoriteBtn.classList.add('is-favorite');
+        icon.setAttribute('fill', 'currentColor');
+    } else {
+        favoriteBtn.classList.remove('is-favorite');
+        icon.removeAttribute('fill');
+    }
+}
+
+function renderFavorites() {
+    favoritesEl.innerHTML = '';
+    const favs = getFavorites();
+    favs.forEach(fav => {
+        const chip = document.createElement('button');
+        chip.className = 'favorite-chip';
+        chip.textContent = fav.name;
+        chip.addEventListener('click', () => searchWeatherByLocation(fav));
+        favoritesEl.appendChild(chip);
+    });
+}
 
 const weatherCodes = {
     0: { description: 'Clear sky', icon: '01d' },
@@ -234,9 +295,18 @@ async function reverseGeocode(lat, lon) {
     };
 }
 
+async function getCitySuggestions(query) {
+    if (!query || query.length < 2) return [];
+    const response = await fetch(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=8&language=en&format=json`
+    );
+    const data = await response.json();
+    return data.results || [];
+}
+
 async function getWeatherData(lat, lon) {
     const response = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max&timezone=auto`
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day&hourly=temperature_2m,weather_code,precipitation_probability&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max&timezone=auto`
     );
     
     if (!response.ok) {
@@ -277,6 +347,30 @@ function displayCurrentWeather(location, weather) {
     uvIndexEl.textContent = daily.uv_index_max[0].toFixed(1);
 }
 
+function formatHour(timeString, timezone) {
+    const date = new Date(timeString);
+    return date.toLocaleString('en-US', { timeZone: timezone, hour: 'numeric', hour12: true });
+}
+
+function displayHourlyForecast(weather) {
+    const hourly = weather.hourly;
+    if (!hourly || !hourly.time || hourly.time.length === 0) return;
+    hourlyContainer.innerHTML = '';
+    const end = Math.min(24, hourly.time.length);
+    for (let i = 0; i < end; i++) {
+        const item = document.createElement('div');
+        item.className = 'hourly-item';
+        const isDay = i >= 6 && i < 20;
+        item.innerHTML = `
+            <div class="hourly-time">${formatHour(hourly.time[i], weather.timezone)}</div>
+            <img class="hourly-icon" src="${getWeatherIcon(hourly.weather_code[i] ?? 0, isDay)}" alt="">
+            <div class="hourly-temp">${formatTemp(hourly.temperature_2m[i])}°</div>
+            <div class="hourly-pop">${(hourly.precipitation_probability?.[i] ?? 0)}%</div>
+        `;
+        hourlyContainer.appendChild(item);
+    }
+}
+
 function displayForecast(weather) {
     const daily = weather.daily;
     forecastContainer.innerHTML = '';
@@ -301,6 +395,7 @@ function displayForecast(weather) {
 function refreshDisplay() {
     if (currentWeatherData && currentLocationData) {
         displayCurrentWeather(currentLocationData, currentWeatherData);
+        displayHourlyForecast(currentWeatherData);
         displayForecast(currentWeatherData);
     }
 }
@@ -317,8 +412,10 @@ async function searchWeather(city) {
         const weather = await getWeatherData(location.lat, location.lon);
         
         displayCurrentWeather(location, weather);
+        displayHourlyForecast(weather);
         displayForecast(weather);
         showWeather();
+        updateFavoriteButton();
         
         localStorage.setItem('lastCity', city);
     } catch (error) {
@@ -331,6 +428,23 @@ async function searchWeather(city) {
     }
 }
 
+async function searchWeatherByLocation(loc) {
+    showLoading();
+    try {
+        const weather = await getWeatherData(loc.lat, loc.lon);
+        const location = { lat: loc.lat, lon: loc.lon, name: loc.name, country: loc.country || '', admin1: loc.admin1 || '' };
+        displayCurrentWeather(location, weather);
+        displayHourlyForecast(weather);
+        displayForecast(weather);
+        showWeather();
+        updateFavoriteButton();
+        cityInput.value = loc.name;
+        citySuggestionsEl.classList.add('hidden');
+    } catch (error) {
+        showError('Failed to fetch weather data. Please try again.');
+    }
+}
+
 async function searchWeatherByCoords(lat, lon) {
     showLoading();
     
@@ -339,8 +453,10 @@ async function searchWeatherByCoords(lat, lon) {
         const weather = await getWeatherData(lat, lon);
         
         displayCurrentWeather(location, weather);
+        displayHourlyForecast(weather);
         displayForecast(weather);
         showWeather();
+        updateFavoriteButton();
         
         cityInput.value = location.name;
     } catch (error) {
@@ -379,7 +495,53 @@ function getCurrentLocation() {
 }
 
 searchBtn.addEventListener('click', () => {
+    citySuggestionsEl.classList.add('hidden');
     searchWeather(cityInput.value);
+});
+
+cityInput.addEventListener('input', () => {
+    clearTimeout(suggestionsDebounce);
+    const q = cityInput.value.trim();
+    if (q.length < 2) {
+        citySuggestionsEl.classList.add('hidden');
+        return;
+    }
+    suggestionsDebounce = setTimeout(async () => {
+        const results = await getCitySuggestions(q);
+        citySuggestionsEl.innerHTML = '';
+        if (results.length === 0) {
+            citySuggestionsEl.classList.add('hidden');
+            return;
+        }
+        results.forEach(r => {
+            const li = document.createElement('button');
+            li.className = 'suggestion-item';
+            li.textContent = `${r.name}${r.admin1 ? ', ' + r.admin1 : ''}${r.country ? ', ' + r.country : ''}`;
+            li.addEventListener('click', () => {
+                searchWeatherByLocation({ name: r.name, country: r.country || '', admin1: r.admin1 || '', lat: r.latitude, lon: r.longitude });
+            });
+            citySuggestionsEl.appendChild(li);
+        });
+        citySuggestionsEl.classList.remove('hidden');
+    }, 300);
+});
+
+cityInput.addEventListener('focus', () => {
+    if (citySuggestionsEl.children.length > 0) citySuggestionsEl.classList.remove('hidden');
+});
+
+cityInput.addEventListener('blur', () => {
+    setTimeout(() => citySuggestionsEl.classList.add('hidden'), 200);
+});
+
+favoriteBtn?.addEventListener('click', () => {
+    if (!currentLocationData) return;
+    if (isFavorite(currentLocationData)) {
+        removeFavorite(currentLocationData);
+    } else {
+        addFavorite(currentLocationData);
+    }
+    updateFavoriteButton();
 });
 
 cityInput.addEventListener('keypress', (e) => {
@@ -411,4 +573,5 @@ fahrenheitBtn.addEventListener('click', () => {
 });
 
 updateUnitButtons();
+renderFavorites();
 getCurrentLocation();

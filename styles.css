@@ -90,10 +90,95 @@ body {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.search-container {
-    display: flex;
+.search-wrapper {
     max-width: 500px;
     margin: 0 auto;
+}
+
+.search-input-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.city-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    margin-top: 4px;
+    box-shadow: var(--shadow-lg);
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.suggestion-item {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    border: none;
+    background: none;
+    text-align: left;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+}
+
+.suggestion-item:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.city-name-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.favorite-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.favorite-btn:hover,
+.favorite-btn.is-favorite {
+    color: #e74c3c;
+}
+
+.favorites {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    justify-content: center;
+}
+
+.favorite-chip {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+.favorite-chip:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.search-container {
+    display: flex;
     background: var(--card-bg);
     border-radius: 50px;
     padding: 6px;
@@ -383,6 +468,60 @@ body {
     font-size: 1rem;
     font-weight: 600;
     color: var(--text-primary);
+}
+
+.hourly-section {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 24px;
+}
+
+.hourly-section h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+.hourly-container {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+}
+
+.hourly-item {
+    flex-shrink: 0;
+    min-width: 72px;
+    text-align: center;
+    padding: 12px 8px;
+    background: linear-gradient(145deg, #f8f9ff 0%, #f0f2ff 100%);
+    border-radius: var(--radius-md);
+}
+
+.hourly-time {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.hourly-icon {
+    width: 36px;
+    height: 36px;
+    margin: 4px auto;
+}
+
+.hourly-temp {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.hourly-pop {
+    font-size: 0.75rem;
+    color: var(--text-muted);
 }
 
 .forecast-section {

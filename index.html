@@ -19,7 +19,8 @@
                     <button id="fahrenheit-btn" class="unit-btn">°F</button>
                 </div>
             </div>
-            <div class="search-container">
+            <div class="search-wrapper">
+                <div class="search-container">
                 <button id="location-btn" class="location-btn" aria-label="Use my location">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="3"></circle>
@@ -29,13 +30,18 @@
                         <path d="M18 12h4"></path>
                     </svg>
                 </button>
-                <input type="text" id="city-input" placeholder="Search city..." autocomplete="off">
+                <div class="search-input-wrapper">
+                    <input type="text" id="city-input" placeholder="Search city..." autocomplete="off">
+                    <div id="city-suggestions" class="city-suggestions hidden"></div>
+                </div>
                 <button id="search-btn" aria-label="Search">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="m21 21-4.3-4.3"></path>
                     </svg>
                 </button>
+                </div>
+                <div id="favorites" class="favorites"></div>
             </div>
         </header>
 
@@ -57,7 +63,14 @@
             <div id="weather-content" class="weather-content hidden">
                 <section class="current-weather">
                     <div class="location-info">
-                        <h2 id="city-name">--</h2>
+                        <div class="city-name-row">
+                            <h2 id="city-name">--</h2>
+                            <button id="favorite-btn" class="favorite-btn" aria-label="Add to favorites">
+                                <svg id="favorite-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </button>
+                        </div>
                         <p id="current-date">--</p>
                         <p id="local-time" class="local-time">--</p>
                     </div>
@@ -121,6 +134,12 @@
                                 <span id="uv-index" class="detail-value">--</span>
                             </div>
                         </div>
+                    </div>
+                </section>
+
+                <section class="hourly-section">
+                    <h3>Hourly Forecast</h3>
+                    <div id="hourly-container" class="hourly-container">
                     </div>
                 </section>
 
