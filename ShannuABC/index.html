@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShannuABC - Learn Alphabets & Numbers</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <h1>ShannuABC</h1>
+            <p class="tagline">Learn Alphabets & Numbers</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab active" data-tab="home">Home</button>
+            <button class="tab" data-tab="alphabets">ABC</button>
+            <button class="tab" data-tab="numbers">123</button>
+            <button class="tab" data-tab="trace">Trace</button>
+        </nav>
+
+        <main class="main">
+            <!-- Home -->
+            <section id="home" class="screen active">
+                <div class="home-cards">
+                    <button class="home-card" data-go="alphabets">
+                        <span class="card-icon">A</span>
+                        <span>Learn Alphabets</span>
+                    </button>
+                    <button class="home-card" data-go="numbers">
+                        <span class="card-icon">1</span>
+                        <span>Learn Numbers</span>
+                    </button>
+                    <button class="home-card" data-go="trace">
+                        <span class="card-icon">✏️</span>
+                        <span>Tracing Practice</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Alphabets -->
+            <section id="alphabets" class="screen">
+                <button class="back-btn" data-back>← Back</button>
+                <div class="letter-grid" id="letter-grid"></div>
+                <div class="big-letter-view hidden" id="big-letter-view">
+                    <div class="letter-picture" id="letter-picture"></div>
+                    <div class="big-letter" id="big-letter"></div>
+                    <p class="letter-name" id="letter-name"></p>
+                </div>
+            </section>
+
+            <!-- Numbers -->
+            <section id="numbers" class="screen">
+                <button class="back-btn" data-back>← Back</button>
+                <div class="number-grid" id="number-grid"></div>
+                <div class="big-number-view hidden" id="big-number-view">
+                    <div class="number-pictures" id="number-pictures"></div>
+                    <div class="big-number" id="big-number"></div>
+                    <p class="number-name" id="number-name"></p>
+                </div>
+            </section>
+
+            <!-- Tracing -->
+            <section id="trace" class="screen">
+                <button class="back-btn" data-back>← Back</button>
+                <div class="trace-picker">
+                    <p>Choose what to trace:</p>
+                    <div class="trace-options">
+                        <button class="trace-opt active" data-trace-type="letter">Letter</button>
+                        <button class="trace-opt" data-trace-type="number">Number</button>
+                    </div>
+                    <div class="trace-choose-letter hidden" id="trace-choose-letter">
+                        <p>Pick a letter:</p>
+                        <div class="trace-letter-grid" id="trace-letter-grid"></div>
+                    </div>
+                    <div class="trace-choose-number hidden" id="trace-choose-number">
+                        <p>Pick a number:</p>
+                        <div class="trace-number-grid" id="trace-number-grid"></div>
+                    </div>
+                </div>
+                <div class="trace-area hidden" id="trace-area">
+                    <div class="trace-toolbar">
+                        <span id="trace-label">Trace: A</span>
+                        <button id="trace-clear">Clear</button>
+                        <button id="trace-done">Done</button>
+                    </div>
+                    <div class="trace-canvas-wrap">
+                        <canvas id="trace-canvas"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
