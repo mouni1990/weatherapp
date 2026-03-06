@@ -37,8 +37,18 @@ let suggestionsDebounce = null;
 function getFavorites() {
     try {
         const saved = localStorage.getItem('favorites');
-        return saved ? JSON.parse(saved) : [];
+        const favs = saved ? JSON.parse(saved) : [];
+        return deduplicateFavorites(favs);
     } catch { return []; }
+}
+
+function deduplicateFavorites(favs) {
+    const seen = [];
+    return favs.filter(f => {
+        if (seen.some(s => isSameLocation(s, f))) return false;
+        seen.push(f);
+        return true;
+    });
 }
 
 function saveFavorites(favs) {
@@ -47,22 +57,30 @@ function saveFavorites(favs) {
 
 function addFavorite(location) {
     const favs = getFavorites();
-    const key = `${location.name}|${location.country}|${location.lat}|${location.lon}`;
-    if (favs.some(f => `${f.name}|${f.country}|${f.lat}|${f.lon}` === key)) return;
+    if (favs.some(f => isSameLocation(f, location))) return;
     favs.push({ name: location.name, country: location.country, admin1: location.admin1 || '', lat: location.lat, lon: location.lon });
-    saveFavorites(favs);
+    saveFavorites(deduplicateFavorites(favs));
     renderFavorites();
 }
 
+function isSameLocation(a, b) {
+    const latA = a.lat ?? a.latitude;
+    const lonA = a.lon ?? a.longitude;
+    const latB = b.lat ?? b.latitude;
+    const lonB = b.lon ?? b.longitude;
+    return a.name === b.name && a.country === b.country &&
+        Math.abs(latA - latB) < 0.01 && Math.abs(lonA - lonB) < 0.01;
+}
+
 function removeFavorite(location) {
-    const favs = getFavorites().filter(f => !(f.name === location.name && f.country === location.country && f.lat === location.lat && f.lon === location.lon));
+    const favs = getFavorites().filter(f => !isSameLocation(f, location));
     saveFavorites(favs);
     renderFavorites();
 }
 
 function isFavorite(location) {
     if (!location) return false;
-    return getFavorites().some(f => f.name === location.name && f.country === location.country && Math.abs(f.lat - location.lat) < 0.01 && Math.abs(f.lon - location.lon) < 0.01);
+    return getFavorites().some(f => isSameLocation(f, location));
 }
 
 function updateFavoriteButton() {

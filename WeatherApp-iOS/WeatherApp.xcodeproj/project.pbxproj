@@ -7,15 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1000001222222220000001 /* WeatherAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000001; };
-		A1000001222222220000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000002; };
-		A1000001222222220000003 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000003; };
-		A1000001222222220000004 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000004; };
-		A1000001222222220000005 /* WeatherUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000005; };
-		A1000001222222220000006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000006; };
+		8F30D3222F561EDE0048E87E /* WeatherAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000001 /* WeatherAppApp.swift */; };
+		8F30D3232F561EDE0048E87E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000002 /* ContentView.swift */; };
+		8F30D3242F561EDE0048E87E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000003 /* Models.swift */; };
+		8F30D3252F561EDE0048E87E /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000004 /* WeatherService.swift */; };
+		8F30D3262F561EDE0048E87E /* WeatherUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000005 /* WeatherUtils.swift */; };
+		8F30D3292F561EDE0048E87E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000006 /* Assets.xcassets */; };
+		8F30D32A2F561EDF00000001 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000008 /* LocationManager.swift */; };
+		8F30D32B2F561EE000000001 /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000009 /* FavoritesManager.swift */; };
+		A1000001222222220000001 /* WeatherAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000001 /* WeatherAppApp.swift */; };
+		A1000001222222220000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000002 /* ContentView.swift */; };
+		A1000001222222220000003 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000003 /* Models.swift */; };
+		A1000001222222220000004 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000004 /* WeatherService.swift */; };
+		A1000001222222220000005 /* WeatherUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000005 /* WeatherUtils.swift */; };
+		A1000001222222220000006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000006 /* Assets.xcassets */; };
+		A1000001222222220000007 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000008 /* LocationManager.swift */; };
+		A1000001222222220000008 /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001111111110000009 /* FavoritesManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F30D32D2F561EDE0048E87E /* WeatherApp copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WeatherApp copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1000001111111110000001 /* WeatherAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppApp.swift; sourceTree = "<group>"; };
 		A1000001111111110000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A1000001111111110000003 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -23,9 +34,18 @@
 		A1000001111111110000005 /* WeatherUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherUtils.swift; sourceTree = "<group>"; };
 		A1000001111111110000006 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1000001111111110000007 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1000001111111110000008 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		A1000001111111110000009 /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8F30D3272F561EDE0048E87E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1000001333333330000001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -52,6 +72,8 @@
 				A1000001111111110000003 /* Models.swift */,
 				A1000001111111110000004 /* WeatherService.swift */,
 				A1000001111111110000005 /* WeatherUtils.swift */,
+				A1000001111111110000008 /* LocationManager.swift */,
+				A1000001111111110000009 /* FavoritesManager.swift */,
 				A1000001111111110000006 /* Assets.xcassets */,
 			);
 			path = WeatherApp;
@@ -61,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				A1000001111111110000007 /* WeatherApp.app */,
+				8F30D32D2F561EDE0048E87E /* WeatherApp copy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -68,6 +91,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8F30D3202F561EDE0048E87E /* WeatherApp copy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F30D32A2F561EDE0048E87E /* Build configuration list for PBXNativeTarget "WeatherApp copy" */;
+			buildPhases = (
+				8F30D3212F561EDE0048E87E /* Sources */,
+				8F30D3272F561EDE0048E87E /* Frameworks */,
+				8F30D3282F561EDE0048E87E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "WeatherApp copy";
+			productName = WeatherApp;
+			productReference = 8F30D32D2F561EDE0048E87E /* WeatherApp copy.app */;
+			productType = "com.apple.product-type.application";
+		};
 		A1000001555555550000001 /* WeatherApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1000001666666660000001 /* Build configuration list for PBXNativeTarget "WeatherApp" */;
@@ -93,7 +133,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 2630;
 				TargetAttributes = {
 					A1000001555555550000001 = {
 						CreatedOnToolsVersion = 15.0;
@@ -114,11 +154,20 @@
 			projectRoot = "";
 			targets = (
 				A1000001555555550000001 /* WeatherApp */,
+				8F30D3202F561EDE0048E87E /* WeatherApp copy */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8F30D3282F561EDE0048E87E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F30D3292F561EDE0048E87E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1000001555555550000003 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -130,6 +179,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8F30D3212F561EDE0048E87E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F30D3222F561EDE0048E87E /* WeatherAppApp.swift in Sources */,
+				8F30D3232F561EDE0048E87E /* ContentView.swift in Sources */,
+				8F30D3242F561EDE0048E87E /* Models.swift in Sources */,
+				8F30D3252F561EDE0048E87E /* WeatherService.swift in Sources */,
+				8F30D3262F561EDE0048E87E /* WeatherUtils.swift in Sources */,
+				8F30D32A2F561EDF00000001 /* LocationManager.swift in Sources */,
+				8F30D32B2F561EE000000001 /* FavoritesManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1000001555555550000002 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -139,12 +202,72 @@
 				A1000001222222220000003 /* Models.swift in Sources */,
 				A1000001222222220000004 /* WeatherService.swift in Sources */,
 				A1000001222222220000005 /* WeatherUtils.swift in Sources */,
+				A1000001222222220000007 /* LocationManager.swift in Sources */,
+				A1000001222222220000008 /* FavoritesManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		8F30D32B2F561EDE0048E87E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MWLSWWHKKJ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show weather for your current position";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cursorworks.weatherapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8F30D32C2F561EDE0048E87E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MWLSWWHKKJ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show weather for your current position";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cursorworks.weatherapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		A1000001888888880000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -203,6 +326,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -259,6 +383,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -271,9 +396,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2FKKP67M2N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show weather for your current position";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -284,7 +410,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.weather.WeatherApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Mounika.weatherapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -299,9 +425,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2FKKP67M2N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show weather for your current position";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -312,7 +439,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.weather.WeatherApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Mounika.weatherapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -323,6 +450,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8F30D32A2F561EDE0048E87E /* Build configuration list for PBXNativeTarget "WeatherApp copy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F30D32B2F561EDE0048E87E /* Debug */,
+				8F30D32C2F561EDE0048E87E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A1000001666666660000001 /* Build configuration list for PBXNativeTarget "WeatherApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

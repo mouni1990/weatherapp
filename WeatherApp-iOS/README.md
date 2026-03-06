@@ -1,42 +1,48 @@
-# Weather App - iOS
+# Weather App
 
-A native SwiftUI iOS weather app with the same features as the web version.
+A beautiful, modern weather application that displays current weather conditions and a 7-day forecast for any city.
 
 ## Features
 
-- Search any city worldwide
-- Current weather with temperature, humidity, wind, feels-like, UV index
-- Live local time display (updates every second)
-- 7-day forecast
-- Beautiful gradient UI matching the web version
-- Remembers last searched city
+- **Current Weather**: Temperature, humidity, wind speed, feels-like temperature, and UV index
+- **7-Day Forecast**: Daily high/low temperatures with weather icons
+- **City Search**: Search any city worldwide
+- **Responsive Design**: Works on desktop, tablet, and mobile devices
+- **Last City Memory**: Remembers your last searched city
 
-## Requirements
+## Technologies Used
 
-- macOS with Xcode 15.0 or later
-- iOS 17.0+ deployment target
+- HTML5, CSS3, JavaScript (Vanilla)
+- [Open-Meteo API](https://open-meteo.com/) - Free weather data (no API key required)
+- [OpenWeatherMap Icons](https://openweathermap.org/) - Weather icons
 
-## How to Run
+## Getting Started
 
-1. **Install Xcode** from the Mac App Store (if not installed)
-2. Open `WeatherApp.xcodeproj` in Xcode
-3. Select a simulator or connect your iPhone
-4. Press `Cmd + R` to build and run
+1. Open `index.html` in your web browser
+2. Search for a city to see the weather
 
-## Project Structure
+Or use a local server:
 
-```
-WeatherApp-iOS/
-├── WeatherApp.xcodeproj/    # Xcode project file
-└── WeatherApp/
-    ├── WeatherAppApp.swift   # App entry point
-    ├── ContentView.swift     # Main UI view
-    ├── Models.swift          # Data models
-    ├── WeatherService.swift  # API service
-    ├── WeatherUtils.swift    # Helper functions
-    └── Assets.xcassets/      # App icons & colors
+```bash
+# Using Python
+python -m http.server 8000
+
+# Using Node.js (npx)
+npx serve
 ```
 
-## API
+Then open http://localhost:8000 in your browser.
 
-Uses the free [Open-Meteo API](https://open-meteo.com/) - no API key required.
+live site at https://mouni1990.github.io/weatherapp/
+
+## API Reference
+
+This app uses the free [Open-Meteo API](https://open-meteo.com/) which:
+- Requires no API key
+- Provides accurate weather forecasts
+- Updates hourly
+- Supports worldwide locations
+
+## License
+
+MIT License - Feel free to use and modify as needed.

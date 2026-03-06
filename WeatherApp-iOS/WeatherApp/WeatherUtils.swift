@@ -1,6 +1,23 @@
 import Foundation
 import SwiftUI
 
+var useFahrenheit: Bool {
+    get { UserDefaults.standard.bool(forKey: "useFahrenheit") }
+    set { UserDefaults.standard.set(newValue, forKey: "useFahrenheit") }
+}
+
+func celsiusToFahrenheit(_ celsius: Double) -> Double {
+    (celsius * 9/5) + 32
+}
+
+func formatTemp(_ celsius: Double) -> Int {
+    Int(useFahrenheit ? celsiusToFahrenheit(celsius) : celsius)
+}
+
+func tempUnitSymbol() -> String {
+    useFahrenheit ? "°F" : "°C"
+}
+
 struct WeatherInfo {
     let description: String
     let icon: String
@@ -49,6 +66,15 @@ func formatLocalTime(timezone: String) -> String {
     formatter.timeZone = TimeZone(identifier: timezone)
     formatter.dateFormat = "h:mm:ss a"
     return formatter.string(from: Date())
+}
+
+func formatHour(timeString: String, timezone: String) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
+    formatter.timeZone = TimeZone(identifier: timezone)
+    guard let date = formatter.date(from: timeString) else { return timeString }
+    formatter.dateFormat = "h a"
+    return formatter.string(from: date)
 }
 
 func formatLocalDate(timezone: String) -> String {
