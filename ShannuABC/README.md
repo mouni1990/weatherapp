@@ -7,6 +7,7 @@ A fun kids learning app to learn **alphabets** (A–Z) and **numbers** (1–10) 
 - **Learn Alphabets** – Tap any letter to see it big with a word (e.g., A for Apple, B for Ball)
 - **Learn Numbers** – Tap any number 1–10 to see counting (e.g., 1 for 1 Pencil, 2 for 2 Apples) with images
 - **Tracing** – Pick a letter or number and trace over the outline with your finger or mouse
+- **Puzzles** – Letter Match (match letter to picture) and Count Match (how many?)
 
 ## How to run
 

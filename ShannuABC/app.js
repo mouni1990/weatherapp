@@ -43,6 +43,7 @@
             if (id === 'alphabets') buildLetterGrid();
             if (id === 'numbers') buildNumberGrid();
             if (id === 'trace') showTracePicker();
+            if (id === 'puzzles') showPuzzlePicker();
         });
     });
 
@@ -55,7 +56,16 @@
     });
 
     document.querySelectorAll('[data-back]').forEach(btn => {
-        btn.addEventListener('click', () => document.querySelector('[data-tab="home"]').click());
+        btn.addEventListener('click', () => {
+            const puzzleArea = document.getElementById('puzzle-area');
+            const puzzlePicker = document.querySelector('.puzzle-picker');
+            if (puzzleArea && !puzzleArea.classList.contains('hidden')) {
+                puzzleArea.classList.add('hidden');
+                if (puzzlePicker) puzzlePicker.classList.remove('hidden');
+            } else {
+                document.querySelector('[data-tab="home"]').click();
+            }
+        });
     });
 
     function buildLetterGrid() {
@@ -259,6 +269,109 @@
         canvas.addEventListener('touchstart', start, { passive: false });
         canvas.addEventListener('touchmove', move, { passive: false });
         canvas.addEventListener('touchend', end);
+    }
+
+    // Puzzles
+    function showPuzzlePicker() {
+        document.getElementById('puzzle-area').classList.add('hidden');
+        const picker = document.querySelector('.puzzle-picker');
+        if (picker) picker.classList.remove('hidden');
+    }
+
+    document.querySelectorAll('.puzzle-type-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const type = btn.dataset.puzzle;
+            document.querySelector('.puzzle-picker').classList.add('hidden');
+            document.getElementById('puzzle-area').classList.remove('hidden');
+            startPuzzle(type);
+        });
+    });
+
+    let puzzleScore = 0;
+    let puzzleTotal = 0;
+    let currentPuzzleType = null;
+
+    function startPuzzle(type) {
+        currentPuzzleType = type;
+        puzzleScore = 0;
+        puzzleTotal = 0;
+        document.getElementById('puzzle-next').classList.add('hidden');
+        document.getElementById('puzzle-feedback').classList.add('hidden');
+        showNextPuzzle(type);
+    }
+
+    function showNextPuzzle(type) {
+        document.getElementById('puzzle-feedback').classList.add('hidden');
+        document.getElementById('puzzle-next').classList.add('hidden');
+        document.getElementById('puzzle-options').innerHTML = '';
+
+        if (type === 'letter-match') {
+            const letters = LETTERS.filter(l => LETTER_WORDS[l]);
+            const correctLetter = letters[Math.floor(Math.random() * letters.length)];
+            const options = [correctLetter];
+            while (options.length < 4) {
+                const r = letters[Math.floor(Math.random() * letters.length)];
+                if (!options.includes(r)) options.push(r);
+            }
+            options.sort(() => Math.random() - 0.5);
+
+            const emoji = LETTER_EMOJIS[correctLetter] || '';
+            document.getElementById('puzzle-question').innerHTML = `Which letter goes with ${emoji}?`;
+            document.getElementById('puzzle-options').className = 'puzzle-options letter-options';
+
+            options.forEach(letter => {
+                const btn = document.createElement('button');
+                btn.className = 'puzzle-opt-btn';
+                btn.textContent = letter;
+                btn.addEventListener('click', () => checkPuzzleAnswer(letter === correctLetter, type));
+                document.getElementById('puzzle-options').appendChild(btn);
+            });
+        } else if (type === 'count-match') {
+            const num = 1 + Math.floor(Math.random() * 10);
+            const item = NUMBER_ITEMS[num];
+            const emoji = item ? item.emoji.repeat(num) : '';
+            const options = [num];
+            while (options.length < 4) {
+                const r = 1 + Math.floor(Math.random() * 10);
+                if (!options.includes(r)) options.push(r);
+            }
+            options.sort(() => Math.random() - 0.5);
+
+            document.getElementById('puzzle-question').innerHTML = `How many? ${emoji}`;
+            document.getElementById('puzzle-options').className = 'puzzle-options number-options';
+
+            options.forEach(n => {
+                const btn = document.createElement('button');
+                btn.className = 'puzzle-opt-btn';
+                btn.textContent = n;
+                btn.addEventListener('click', () => checkPuzzleAnswer(n === num, type));
+                document.getElementById('puzzle-options').appendChild(btn);
+            });
+        }
+
+        puzzleTotal++;
+        updatePuzzleScore();
+    }
+
+    function checkPuzzleAnswer(correct, type) {
+        document.querySelectorAll('.puzzle-opt-btn').forEach(b => {
+            b.disabled = true;
+            b.style.pointerEvents = 'none';
+        });
+        if (correct) puzzleScore++;
+        const feedback = document.getElementById('puzzle-feedback');
+        feedback.textContent = correct ? '🌟 Correct! Great job!' : '💪 Try again next time!';
+        feedback.className = 'puzzle-feedback ' + (correct ? 'correct' : 'wrong');
+        feedback.classList.remove('hidden');
+        document.getElementById('puzzle-next').classList.remove('hidden');
+        document.getElementById('puzzle-next').onclick = () => {
+            document.getElementById('puzzle-options').innerHTML = '';
+            showNextPuzzle(type);
+        };
+    }
+
+    function updatePuzzleScore() {
+        document.getElementById('puzzle-score').textContent = `Score: ${puzzleScore}${puzzleTotal ? ' / ' + puzzleTotal : ''}`;
     }
 
     // Init

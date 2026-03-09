@@ -21,6 +21,7 @@
             <button class="tab" data-tab="alphabets">ABC</button>
             <button class="tab" data-tab="numbers">123</button>
             <button class="tab" data-tab="trace">Trace</button>
+            <button class="tab" data-tab="puzzles">Puzzles</button>
         </nav>
 
         <main class="main">
@@ -38,6 +39,10 @@
                     <button class="home-card" data-go="trace">
                         <span class="card-icon">✏️</span>
                         <span>Tracing Practice</span>
+                    </button>
+                    <button class="home-card" data-go="puzzles">
+                        <span class="card-icon">🧩</span>
+                        <span>Puzzles</span>
                     </button>
                 </div>
             </section>
@@ -91,6 +96,35 @@
                     <div class="trace-canvas-wrap">
                         <canvas id="trace-canvas"></canvas>
                     </div>
+                </div>
+            </section>
+
+            <!-- Puzzles -->
+            <section id="puzzles" class="screen">
+                <button class="back-btn" data-back>← Back</button>
+                <div class="puzzle-picker">
+                    <p>Choose a puzzle:</p>
+                    <div class="puzzle-types">
+                        <button class="puzzle-type-btn" data-puzzle="letter-match">
+                            <span class="puzzle-type-icon">🔤</span>
+                            <span>Letter Match</span>
+                            <span class="puzzle-desc">Match the letter to the picture</span>
+                        </button>
+                        <button class="puzzle-type-btn" data-puzzle="count-match">
+                            <span class="puzzle-type-icon">🔢</span>
+                            <span>Count Match</span>
+                            <span class="puzzle-desc">How many? Pick the right number</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="puzzle-area hidden" id="puzzle-area">
+                    <div class="puzzle-header">
+                        <span id="puzzle-question"></span>
+                        <span id="puzzle-score"></span>
+                    </div>
+                    <div class="puzzle-options" id="puzzle-options"></div>
+                    <div class="puzzle-feedback hidden" id="puzzle-feedback"></div>
+                    <button class="puzzle-next hidden" id="puzzle-next">Next →</button>
                 </div>
             </section>
         </main>
